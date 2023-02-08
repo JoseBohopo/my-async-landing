@@ -21,7 +21,7 @@ async function fetchData(urlAPI) {
 (async () => {
   try {
     const videos = await fetchData(API);
-    console.log(videos.data);
+
     let view = `
 ${videos.data
   .map(
