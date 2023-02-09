@@ -1,8 +1,26 @@
-//API call
-
 const content = null || document.getElementById("content");
-const API =
+const API_YOUTUBE =
   "https://youtube-v3-alternative.p.rapidapi.com/channel?id=UC3aj05GEEyzdOqYM5FLSFeg";
+const API_GEOLOCATION =
+  "https://ip-geo-location.p.rapidapi.com/ip/check?format=json";
+
+//Geolocation API call
+
+const optionsGeoLocation = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Key": "94b561bb73msh61f99cafdd1bbbdp107af7jsn78d07f14fd8c",
+    "X-RapidAPI-Host": "ip-geo-location.p.rapidapi.com",
+  },
+};
+
+const fetchLocationData = async (urlAPI, optionsGeoLocation) => {
+  const response = await fetch(urlAPI, optionsGeoLocation);
+  const data = response.json();
+  return data;
+};
+
+//Youtube API call
 
 const options = {
   method: "GET",
@@ -20,7 +38,11 @@ async function fetchData(urlAPI) {
 
 (async () => {
   try {
-    const videos = await fetchData(API);
+    const videos = await fetchData(API_YOUTUBE);
+    const location = await fetchLocationData(
+      API_GEOLOCATION,
+      optionsGeoLocation
+    );
 
     let view = `
 ${videos.data
